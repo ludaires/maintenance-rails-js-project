@@ -1,0 +1,28 @@
+<h1> Maintenance ID: <%= @maintenance.id %></h1>
+<h2> Equipment: <%= @maintenance.equipment.name %> | <%= @maintenance.equipment.code %> </h2>
+<h3> Technician: <%= @maintenance.user.username %> </h3>
+
+<%= form_for @maintenance do |f|%>
+
+    <%= f.hidden_field(:user_id, :value => current_user.id) %>
+    <%# I want to create a condition, if this is a edit form, I'll show more two options.%>
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select(["Approved", "Unapproved"]) %><br>
+    <br>
+    <%= f.label :maintenance_type %>
+    <%= f.select :maintenance_type, options_for_select([ "Preventive", "Corrective" ], "Preventive") %><br>
+    <br>
+     <%= f.label :next_maintenance_date %>
+    <%= f.text_field :next_maintenance_date, class: "datepicker" %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.datepicker').datepicker({ format: 'dd/mm/yyyy', language: 'pt-BR' });
+        });
+    </script>
+
+    <br>
+    <%= f.label :notes %>
+    <%= f.text_field :notes %><br>
+    <br>
+    <%= f.submit "Close Maintenance", data: {confirm: "Once you close this maintenance you can't edit anymore. Are you sure about close it?"}, class:"btn btn-warning" %>
+<% end %>

@@ -1,0 +1,18 @@
+<p class="text-danger"><%= flash[:message] if flash[:message]%></p>
+
+<h1>Welcome, <%= current_user.username.titleize %> </h1>
+
+<% if !current_user.admin? %>
+    <p>User status: regular </p>
+<% else %>
+    <p><strong>User status:</strong> Administrator </p>
+<% end %>
+
+<h2>List of your maintenances: </h2><br>
+<% current_user.maintenances.each do |maintenance| %>
+    <h3> Equipment: <%= maintenance.equipment.name %> | <%= maintenance.equipment.code %> </h3>
+    <p> <%= link_to "Maintenance ID:  #{maintenance.id} | #{maintenance.status}", maintenance_path(maintenance) %></p>
+    <%= render partial: 'maintenances/maintenance_information', locals: {object: maintenance} %>
+<% end %> <br>
+
+<h2> <%= link_to "Create a new Maintenance", new_maintenance_path, class: "btn btn-success" %></h2>

@@ -1,0 +1,14 @@
+ <h1>Add itens to be inspected </h1>
+ 
+ <%= form_for [@maintenance, @inspection] do |i| %>
+    <%= i.label "Part to be checked" %>
+    <%= i.collection_select(:part_id, Part.all, :id, :description, {:include_blank => 'Please Select'}) %>
+    <%= i.label :issue %>
+    <%= i.collection_select(:issue_id, Issue.all, :id, :title, {:include_blank => 'Please Select'}) %>
+    <%= i.label :cause %>
+    <%= i.collection_select(:cause_id, Cause.all, :id, :title, {:include_blank => 'Please Select'}) %>
+    <%= i.label :action %>
+    <%= i.collection_select(:action_id, Action.all, :id, :title, {:include_blank => 'Please Select'}) %><br>
+    <br>
+    <%= i.submit class: "btn btn-primary" %>
+<% end %>

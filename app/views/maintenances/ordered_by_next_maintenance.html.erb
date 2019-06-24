@@ -1,0 +1,45 @@
+<div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Next Maintenances</h1>        
+    <div class="table-responsive pt-2">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                <th>Equipment Code</th>          
+                <th>Equipment</th>       
+                <th>Last Maintenance</th>          
+                <th>Date</th>      
+                <th>Next Maintenance</th>     
+                </tr>
+            </thead>
+ <tbody>       
+                <% @maintenances.each do |m| %>
+                    <% equipment = m.equipment %>
+                <tr>
+                <%# <th scope="row"><a href="/equipment/<%= equipment.id"><%= equipment.code</a></td>     %>
+                <th scope="row"><%= equipment.code %></td>
+                <td><%= equipment.name %></td>          
+                <td>
+                    <% if !equipment.maintenances.empty? %>
+                    <% last = equipment.maintenances.last %>
+                    <a href="/maintenances/<%= last.id %>"><%= last.status %></a>
+                    <% end %>
+                </td>  
+                <td>
+                    <% if !equipment.maintenances.empty? %>
+                        <% last = equipment.maintenances.last %>
+                        <%= last.updated_at %>
+                    <% end %>
+                </td>   
+                <td>
+                    <% if !equipment.maintenances.empty? %>
+                        <% last = equipment.maintenances.last %>
+                        <%= last.next_maintenance_date %>
+                    <% end %>
+                </td>           
+                </tr>
+                <%end%>       
+            </tbody>
+        </table>
+    </div>    
+</div>
+

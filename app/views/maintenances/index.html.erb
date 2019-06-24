@@ -1,0 +1,13 @@
+<p class="text-danger"><%= flash[:message] if flash[:message]%></p>
+
+<h1> List of all Maintenances </h1>
+<br>
+<% @maintenances.each do |maintenance| %>
+    <h2> <%= link_to "Maintenance ID:  #{maintenance.id} | #{maintenance.status}", maintenance_path(maintenance) %></h2>
+    <p> Equipment: <%= maintenance.equipment.name %> | <%= maintenance.equipment.code %> </p>
+    <p> Technician: <%= maintenance.user.username %> </p>
+    <% if maintenance.notes != "" %>
+        <p>Notes: <%= maintenance.notes %>
+    <% end %>
+<% end %> 
+<br>

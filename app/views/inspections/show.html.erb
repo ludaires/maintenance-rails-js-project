@@ -1,0 +1,16 @@
+<h1> Maintenance ID: <%= @inspection.maintenance.id %></h1>
+<h2> Equipment: <%= @inspection.maintenance.equipment.name %> | <%= @maintenance.equipment.code %> </h2>
+<h3> Technician: <%= @inspection.maintenance.user.username %> </h3>
+
+
+<p> <strong> Status: </strong> <%= @inspection.maintenance.status %> </p> 
+<p> <strong> Type: </strong> <%= @inspection.maintenance.maintenance_type %> </p> 
+<p> <strong> Notes: </strong> <%= @inspection.maintenance.notes %> </p>
+
+<h1>Itens Verified</h1>
+<%= @inspection.part.description %> |  <%= @inspection.issue.code_type %>:<%= @inspection.issue.title %> |  <%= @inspection.cause.code_type %>:<%= @inspection.cause.title %> |  <%= @inspection.action.code_type %>:<%= @inspection.action.title %><br>
+<%= link_to "Edit Inspection", ([:edit, @maintenance, @inspection]), class: "btn btn-secondary" %> | <%= link_to "Delete Inspection", maintenance_inspection_path(@maintenance, @inspection), method: :delete, class: "btn btn-danger" %><br>
+<br>
+<%= link_to "Add new Inspection", ([:new, @maintenance, :inspection]), class: "btn btn-primary" %>
+<br></br>
+<%= link_to "Back to maintenance", maintenance_path(@maintenance), class: "btn btn-outline-dark" %>

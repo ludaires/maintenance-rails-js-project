@@ -1,0 +1,48 @@
+<%= form_for @maintenance do |f|%>
+
+    <%= f.hidden_field(:user_id, :value => current_user.id) %>
+
+    <label for="equipment">Equipment:</label>
+    <select id="equipment"name="maintenance[equipment_id]">
+        <% Equipment.all.each do |equipment| %>
+        <option value="<%=equipment.id%> "><%= "#{equipment.code} - #{equipment.name}" %></option>
+        <% end %>
+    </select>        
+    <br>
+    <br>
+
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select(["In progress"]) %><br>
+    <br>
+    <%= f.label :maintenance_type %>
+    <%= f.select :maintenance_type, options_for_select([ "Preventive", "Corrective" ], "Preventive") %><br>
+    <br>
+    <%# form with a calendar to show a specific date to be selected. %>
+    <%= f.label :next_maintenance_date %>
+    <%= f.text_field :next_maintenance_date, class: "datepicker" %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.datepicker').datepicker({ format: 'dd/mm/yyyy', language: 'pt-BR' });
+        });
+    </script>
+    <br>
+    <%= f.label :notes %>
+    <%= f.text_field :notes %><br>
+    <br>
+    <br>
+    <%# Nested form - inspection  %>
+    <h2>Parts to be inspect </h2>
+    <%= f.fields_for :inspections do |i| %>
+        <%= i.label "Item checked" %>
+        <%= i.collection_select(:part_id, Part.all, :id, :description, {:include_blank => 'Please Select'}) %>
+        <%= i.label :issue %>
+        <%= i.collection_select(:issue_id, Issue.all, :id, :title, {:include_blank => 'Please Select'}) %>
+        <%= i.label :cause %>
+        <%= i.collection_select(:cause_id, Cause.all, :id, :title, {:include_blank => 'Please Select'}) %>
+        <%= i.label :action %>
+        <%= i.collection_select(:action_id, Action.all, :id, :title, {:include_blank => 'Please Select'}) %><br>
+        
+    <% end %>
+    <br>
+    <%= f.submit class: "btn btn-success" %>
+<% end %>
