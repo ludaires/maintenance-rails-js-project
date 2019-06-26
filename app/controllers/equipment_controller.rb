@@ -3,6 +3,9 @@ class EquipmentController < ApplicationController
     def index
         @user = current_user
         @all_equipment = Equipment.all
+        # respond_to do |f|
+        #     f.html { render :index}
+        #     f.json {render json: @all_equipment}
         render json: @all_equipment.to_json, status: 200
     end
 
