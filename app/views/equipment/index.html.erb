@@ -16,7 +16,6 @@
             <tbody>       
                 <% Equipment.all.each do |equipment| %>
                 <tr>
-                <%# <th scope="row"><a href="/equipment/<%= equipment.id"><%= equipment.code</a></td>     %>
                 <th scope="row"><%= link_to equipment.code, user_equipment_path(@current_user, equipment) %></td>
                 <td><%= equipment.name %></td>          
                 <td>
