@@ -1,4 +1,4 @@
-<%= form_for [current_user, @equipment] do |f|%>
+<%= form_for [current_user, @equipment], :html => {:id => 'new-form'} do |f| %>
 
     <%= f.hidden_field(:user_id, :value => current_user.id) %>
 
@@ -25,3 +25,5 @@
 
     <%= f.submit class: "btn btn-success" %>
 <% end %>
+<br>
+<div id="new-equipment"></div>
