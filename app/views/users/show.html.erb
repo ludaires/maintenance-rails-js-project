@@ -15,4 +15,5 @@
     <%= render partial: 'maintenances/maintenance_information', locals: {object: maintenance} %>
 <% end %> <br>
 
-<h2> <%= link_to "Create a new Maintenance", new_maintenance_path, class: "btn btn-success" %></h2>
+<h2> <%= link_to "Create a new Maintenance", new_maintenance_path, class: "btn btn-success" %> | <%= link_to "Register a new Equipment", new_user_equipment_path(current_user), class: "btn btn-success" %></h2>  
+
