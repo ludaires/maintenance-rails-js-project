@@ -1,0 +1,27 @@
+<%= form_for [current_user, @equipment] do |f|%>
+
+    <%= f.hidden_field(:user_id, :value => current_user.id) %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :code %>
+    <%= f.text_field :code %><br>
+
+    <%= f.label :location %>
+    <%= f.text_field :location %><br>
+
+    <%= f.label :calibration_unit %>
+    <%= f.text_field :calibration_unit %><br>
+
+    <%= f.label :calibration_start %>
+    <%= f.text_field :calibration_start %><br>
+
+    <%= f.label :calibration_end %>
+    <%= f.text_field :calibration_end %><br>
+
+    <%= f.label :uncertainty %>
+    <%= f.text_field :uncertainty %><br>
+
+    <%= f.submit class: "btn btn-success" %>
+<% end %>
