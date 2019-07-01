@@ -42,6 +42,7 @@ function showEquipment() {
             console.log('asked data from show page')
             $('.container').html('')
             let newEquipment = new Equipment(data)
+            console.log(newEquipment)
             let equipmentHtml = newEquipment.formatShow()
             $('.container').append(equipmentHtml)
         })
@@ -112,14 +113,22 @@ function Equipment(equipment) {
  }
 
  Equipment.prototype.formatShow = function() {
+    let maintenancesHtml = ``
+        this.maintenances.forEach((m) => {
+        maintenancesHtml += `<li> ${m.maintenance_type} - <a href="/maintenances/${m.id}">${m.status}</a></li>`
+        })
+
      let showHtml = `
-        <h3>${this.name} | ${this.code}</h3>
+        <h2>${this.name} | ${this.code}</h2>
         <p>Location: ${this.location}</p>
         <p>Calibration Unit: ${this.calibration_unit}</p>
         <p>Calibration Start: ${this.calibration_start}</p>
         <p>Calibration End: ${this.calibration_end}</p>
         <p>Uncertainty: ${this.uncertainty}</p>
-        <p>
+        <h3>Maintenances</h3>
+        <ul>
+        ${maintenancesHtml}     
+        </ul>
      `
      return showHtml
  }
