@@ -1,6 +1,7 @@
 $(document).ready(() => {
     console.log("Loaded")
     indexEquipment()
+    indexOrderEquipment()
     showEquipment()
     submitForm()
 })
@@ -31,6 +32,39 @@ function indexEquipment(){
     })
 }
 
+function indexOrderEquipment(){
+    $('#order_equipment').on('click', function(event){
+        event.preventDefault()  
+        // TODO: history.pushState(null, null, 'users/2/equipment')
+        fetch(`/users/${userId()}/equipment.json`)
+            .then(response => response.json())
+            .then(allEquipment => {
+                $('.container').html('')
+                console.log('Asked data from index')
+                allEquipment.sort(function(a, b){
+                    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                        return -1;
+                }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    // names must be equal
+                    return 0;
+                })
+                console.log(allEquipment)
+                allEquipment.forEach(equipment => {
+                    let newEquipment = new Equipment(equipment)
+                    // console.log(newEquipment)
+                    let equipmentHtml = newEquipment.formatIndex()
+                    $('.container').append(equipmentHtml)
+            })
+        })
+       
+    })
+}
+
 // function to render the Equipment show page via JavaScript.
 function showEquipment() {
     $(document).on('click', ".show-equipment", function(e) {
@@ -39,7 +73,6 @@ function showEquipment() {
     fetch(`/users/${userId()}/equipment/${id}.json`)
         .then(res => res.json())
         .then(data => {
-            console.log('asked data from show page')
             $('.container').html('')
             let newEquipment = new Equipment(data)
             console.log(newEquipment)
@@ -75,7 +108,6 @@ function Equipment(equipment) {
     this.location = equipment.location
     this.uncertainty = equipment.uncertainty
     this.calibration_unit = equipment.calibration_unit
-    // TODO: INSERT THE MAINTENANCES IN THE SHOW PAGE
     this.maintenances = equipment.maintenances
 }
 
@@ -129,6 +161,7 @@ function Equipment(equipment) {
         <ul>
         ${maintenancesHtml}     
         </ul>
+        <button class="next-equipment" data-id="${(this.id + 1)}">Next</button>
      `
      return showHtml
  }

@@ -18,14 +18,15 @@
       <nav class="my-2  my-md-0 mr-md-3" > 
         <% if logged_in? %>
           <%= link_to "Profile", user_path(current_user), class: "p-2 text-dark"%>  
-          <%= link_to "Equipment", user_equipment_index_path(current_user),  :data => {:'user_id' => "#{current_user.id}"}, class: "p-2 text-dark", id: "all_equipment" %>  
+          <%= link_to "Equipment", user_equipment_index_path(current_user),  :data => {:'user_id' => "#{current_user.id}"}, class: "p-2 text-dark", id: "all_equipment" %>
+          <%= link_to "Order Equipment", user_equipment_index_path(current_user),  :data => {:'user_id' => "#{current_user.id}"}, class: "p-2 text-dark", id: "order_equipment" %>  
           <%= link_to "Next Maintenances Date", ordered_by_next_maintenance_maintenances_path, class: "p-2 text-dark"%>  
           <%= link_to "Maintenances", maintenances_path, class: "p-2 text-dark" %>     
           <%= link_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-primary" %>        
       <% else %>
           <%= link_to "Sign Up", signup_path, class: "btn btn-outline-primary"%>
           <%= link_to "Log In", login_path, class: "btn btn-outline-secondary" %>
-           <%= link_to "Log in via Google", '/auth/google_oauth2', class: "btn btn-outline-secondary" %>
+          <%= link_to "Log in via Google", '/auth/google_oauth2', class: "btn btn-outline-secondary" %>
       <% end %>  
      </nav>  
     </div>  
