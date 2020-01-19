@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_03_184904) do
+ActiveRecord::Schema.define(version: 2018_12_26_221658) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "actions", force: :cascade do |t|
     t.string "code"
@@ -41,17 +44,17 @@ ActiveRecord::Schema.define(version: 2019_01_03_184904) do
   end
 
   create_table "inspections", force: :cascade do |t|
-    t.integer "maintenance_id"
-    t.integer "part_id"
-    t.integer "issue_id"
-    t.integer "action_id"
-    t.integer "cause_id"
+    t.bigint "maintenances_id"
+    t.bigint "part_id"
+    t.bigint "issue_id"
+    t.bigint "action_id"
+    t.bigint "cause_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_id"], name: "index_inspections_on_action_id"
     t.index ["cause_id"], name: "index_inspections_on_cause_id"
     t.index ["issue_id"], name: "index_inspections_on_issue_id"
-    t.index ["maintenance_id"], name: "index_inspections_on_maintenance_id"
+    t.index ["maintenances_id"], name: "index_inspections_on_maintenances_id"
     t.index ["part_id"], name: "index_inspections_on_part_id"
   end
 
@@ -64,8 +67,8 @@ ActiveRecord::Schema.define(version: 2019_01_03_184904) do
   end
 
   create_table "maintenances", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "equipment_id"
+    t.bigint "user_id"
+    t.bigint "equipment_id"
     t.string "status"
     t.string "next_maintenance_date"
     t.text "notes"
@@ -92,4 +95,11 @@ ActiveRecord::Schema.define(version: 2019_01_03_184904) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "inspections", "actions"
+  add_foreign_key "inspections", "causes"
+  add_foreign_key "inspections", "issues"
+  add_foreign_key "inspections", "maintenances", column: "maintenances_id"
+  add_foreign_key "inspections", "parts"
+  add_foreign_key "maintenances", "equipment"
+  add_foreign_key "maintenances", "users"
 end
