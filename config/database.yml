@@ -17,7 +17,7 @@ development:
   host: cmms-db01.pve.byoc.lab
   database: cmms
   username: cmms
-  password: w9EhveNuty5QgeYJ
+  password: <your password here>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -34,7 +34,7 @@ production:
     host: cmms-db01.pve.byoc.lab
     database: cmms
     username: cmms
-    password: w9EhveNuty5QgeYJ
+    password: <your password here>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     timeout: 5000
 
